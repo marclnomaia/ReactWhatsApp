@@ -4,6 +4,7 @@ import React from 'react';
 //import Wspacetext from './components/Body/Wspacetext';
 //import FixedNavBar from './components/Header/FixedNavBar';
 import FlexNavBar from './components/Header/FlexNavBar';
+import SearchBox from './components/Header/searchBox';
 //import FlexFooter from './components/Footer/FlexFooter';
 //import FixedFooter from './components/Footer/FixedFooter';
 
@@ -25,7 +26,13 @@ const App: React.FC = () => {
         </div>*/}
         <div className="col-span-1 bg-white">
           <FlexNavBar />
-        </div>
+        
+         {/* SearchBox: occupies 4 columns out of 12 */}
+         
+          <div className="col-span-1 mt-2 mx-[4px]">
+            <SearchBox />
+          </div>
+          </div>
 
         {/* Footer */}
          {/*<div className="col-span-4">

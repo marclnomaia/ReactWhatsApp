@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
-import { FaUserCircle, FaRobot, FaUsers, FaRegCircle, FaCommentAlt, FaEllipsisV } from 'react-icons/fa';
-
+import { FaUsers, FaEllipsisV } from 'react-icons/fa';
+import { HiStatusOnline } from 'react-icons/hi';
+import { RiChatNewFill } from 'react-icons/ri';
+import { FiCircle } from 'react-icons/fi';
+import profileImage from './images/profile.png';
 
 const FlexNavBar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -9,14 +12,17 @@ const FlexNavBar: React.FC = () => {
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+    console.log("Menu toggled:", !isMenuOpen);
   };
 
   const handleMouseDown = () => {
     setIsClicked(true);
+    console.log("Mouse down");
   };
 
   const handleMouseUp = () => {
     setIsClicked(false);
+    console.log("Mouse up");
   };
 
   const menuItemStyle = (item: string) => ({
@@ -30,13 +36,17 @@ const FlexNavBar: React.FC = () => {
     <div className="bg-gray-200 p-2">
       <div className="grid grid-cols-4 h-10 items-center">
         <div className="flex items-center ml-2">
-          <FaUserCircle size={24} title="User Profile" />
+          <img
+            src={profileImage}
+            alt="User Profile"
+            className="w-10 h-10 rounded-full"
+          />
         </div>
-        <div className="col-span-3 flex justify-end gap-4 pr-2">
-          <FaRobot size={24} title="AI Icon" />
+        <div className="col-span-3 flex justify-end items-center gap-4 pr-2">
+          <FiCircle size={24} title="AI Icon" />
           <FaUsers size={24} title="Communities" />
-          <FaRegCircle size={24} title="Status" />
-          <FaCommentAlt size={24} title="New Chat" />
+          <HiStatusOnline size={24} title="Status" />
+          <RiChatNewFill size={24} title="New Chat" />
           <div
             className="relative inline-block cursor-pointer w-6 h-6"
             onMouseDown={handleMouseDown}
@@ -47,7 +57,7 @@ const FlexNavBar: React.FC = () => {
             <FaEllipsisV size={24} />
             {isClicked && (
               <div
-                className="absolute top-1/2 left-1/2 w-full h-full bg-gray-500 rounded-full transform -translate-x-1/2 -translate-y-1/2 opacity-50"
+                className="absolute top-[2px] left-1/2 w-full h-full bg-gray-500 rounded-full transform -translate-x-1/2 -translate-y-1/2 opacity-50"
               />
             )}
             {isMenuOpen && (
@@ -121,8 +131,5 @@ const FlexNavBar: React.FC = () => {
 };
 
 export default FlexNavBar;
-
-
-
 
 
