@@ -5,6 +5,8 @@ import React from 'react';
 //import FixedNavBar from './components/Header/FixedNavBar';
 import FlexNavBar from './components/Header/FlexNavBar';
 import SearchBox from './components/Header/searchBox';
+import ContactsMenu from './components/Body/ContactsMenu';
+import ContactItem from './components/Body/ContactItem';
 //import FlexFooter from './components/Footer/FlexFooter';
 //import FixedFooter from './components/Footer/FixedFooter';
 
@@ -17,9 +19,7 @@ const App: React.FC = () => {
         </div>*/}
 
         {/* Main content area */}
-         {/*<div className="col-span-1 bg-white">
-          <Contacts />
-        </div>
+         
          {/*<div className="col-span-2 bg-white">
           <Workspace />
           <Wspacetext />
@@ -32,7 +32,13 @@ const App: React.FC = () => {
           <div className="col-span-1 mt-2 mx-[4px]">
             <SearchBox />
           </div>
+          <div className="col-span-1">
+            <ContactsMenu />
           </div>
+          <div className="col-span-1 bg-white">
+          <ContactItem picture={''} name={''} time={''} message={''} />
+        </div>
+        </div>
 
         {/* Footer */}
          {/*<div className="col-span-4">
@@ -45,4 +51,3 @@ const App: React.FC = () => {
 };
 
 export default App;
-
