@@ -57,7 +57,8 @@ const FlexNavBar: React.FC = () => {
             <FaEllipsisV size={24} />
             {isClicked && (
               <div
-                className="absolute top-[2px] left-1/2 w-full h-full bg-gray-500 rounded-full transform -translate-x-1/2 -translate-y-1/2 opacity-50"
+                className="absolute top-[2px] left-1/2 w-full h-full bg-gray-500 rounded-full 
+                transform -translate-x-1/2 -translate-y-1/2 opacity-50"
               />
             )}
             {isMenuOpen && (

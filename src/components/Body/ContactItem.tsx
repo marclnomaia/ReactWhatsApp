@@ -1,35 +1,31 @@
 import React from 'react';
+import { MdDone, MdDoneAll } from 'react-icons/md'; // Importing check icons
 
 interface ContactItemProps {
   picture: string;
   name: string;
   time: string;
   message: string;
+  status: 'received' | 'read'; // Explicitly define the type for status
 }
 
-const ContactItem: React.FC<ContactItemProps> = ({ picture, name, time, message }) => {
+const ContactItem: React.FC<ContactItemProps> = ({ picture, name, time, message, status }) => {
   return (
-    <div className="flex items-start py-2 px-4 hover:bg-gray-100">
-      {/* User Picture */}
-      <img src={picture} alt={`${name}'s profile`} className="w-12 h-12 rounded-full" />
-      <div className="flex-1 ml-4 border-b border-gray-300">
-        <div className="flex justify-between items-center">
-          {/* User Name */}
-          <span className="font-medium">{name}</span>
-          {/* Time */}
-          <span className="text-xs text-gray-500">{time}</span>
+    <div className="flex items-center p-4 border-b border-gray-200">
+      <img
+        src={picture}
+        alt={name}
+        className="w-12 h-12 rounded-full mr-4"
+      />
+      <div className="flex-1">
+        <div className="flex justify-between items-center mb-1">
+          <h3 className="text-lg font-semibold">{name}</h3>
+          <span className="text-sm text-gray-500">{time}</span>
         </div>
         <div className="flex items-center">
-          {/* Double Tick Icon */}
-          <svg
-            className="w-4 h-4 text-gray-500 mr-1"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-          >
-            <path d="M13.59 3.41a1 1 0 0 1 1.42 0l5.3 5.3a1 1 0 1 1-1.42 1.42L14 5.83l-5.29 5.3a1 1 0 0 1-1.42-1.42l5.3-5.3zM7.59 7.41a1 1 0 0 1 1.42 0l5.3 5.3a1 1 0 1 1-1.42 1.42L8 9.83l-5.29 5.3a1 1 0 0 1-1.42-1.42l5.3-5.3z" />
-          </svg>
-          {/* Message Text */}
-          <span className="text-sm text-gray-600">{message}</span>
+          {status === 'received' && <MdDone className="text-gray-500 mr-1" />} {/* One tick */}
+          {status === 'read' && <MdDoneAll className="text-blue-500 mr-1" />} {/* Two ticks in blue */}
+          <p className="text-gray-600">{message}</p>
         </div>
       </div>
     </div>
@@ -37,3 +33,6 @@ const ContactItem: React.FC<ContactItemProps> = ({ picture, name, time, message 
 };
 
 export default ContactItem;
+
+
+
