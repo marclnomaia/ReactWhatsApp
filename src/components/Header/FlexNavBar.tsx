@@ -34,7 +34,7 @@ const FlexNavBar: React.FC = () => {
 
   return (
     <div className="bg-gray-200 p-2">
-      <div className="grid grid-cols-4 h-10 items-center">
+      <div className="grid grid-cols-4 h-12 items-center">
         <div className="flex items-center ml-2">
           <img
             src={profileImage}
