@@ -7,87 +7,99 @@ import FixedNavBar from './components/Header/FixedNavBar';
 import FixedFooter from './components/Footer/FixedFooter';
 import Workspace from './components/Body/Workspace';
 
-const App: React.FC = () => {
-  const [selectedContact, setSelectedContact] = useState<any>(null);
-  const [messages, setMessages] = useState<Array<{ id: number; text: string; time: string; sent: boolean; status: string }>>([]);
+export type Message = {
+  sender: string;
+  text: string;
+  time: string;
+};
 
-  const handleContactClick = (contact: any) => {
+type Contact = {
+  picture: string;
+  name: string;
+  time: string;
+  message: string;
+  status: 'received' | 'read';
+};
+
+const App = () => {
+  const [selectedContact, setSelectedContact] = useState<Contact | null>(null);
+  const [messages, setMessages] = useState<Message[]>([]);
+
+  const handleContactClick = (contact: Contact) => {
     setSelectedContact(contact);
-    const initialMessage = {
-      id: messages.length + 1,
-      text: "Hello, How are you?",
-      time: new Date().toLocaleTimeString(),
-      sent: false,
-      status: 'received',
-    };
-    setMessages([...messages, initialMessage]);
+    // Fetch messages for the selected contact here
+    setMessages([
+      { sender: contact.name, text: contact.message, time: contact.time },
+      // Add more messages as needed
+    ]);
   };
 
   const handleSendMessage = (message: string) => {
-    const newMessage = {
-      id: messages.length + 1,
-      text: message,
-      time: new Date().toLocaleTimeString(),
-      sent: true,
-      status: 'sent',
-    };
-    setMessages([...messages, newMessage]);
+    if (selectedContact) {
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        { sender: 'You', text: message, time: new Date().toLocaleTimeString() },
+      ]);
+    }
   };
-
   
   return (
-    <div className="h-screen w-screen bg-gray-100 relative">
-      {/* Green background at the top */}
-      <div className="bg-green-700 h-20 absolute top-0 left-0 right-0 z-0"></div>
-      
-      {/* Main content area */}
-      <div className="grid grid-cols-12 h-full pt-20 relative z-10">
+    <div className="h-screen w-screen bg-gray-100 flex justify-center items-center">
+      {/* Main container */}
+      <div className="h-full w-full grid grid-cols-12 relative bg-gray-100" style={{ paddingTop: '10px' }}>
+        {/* Green background at the top */}
+        <div className="absolute top-0 left-0 right-0 h-20 bg-green-600 z-0"></div>
+
         <div className="col-span-1"></div>
-        <div className="col-span-3 relative">
+        
+        {/* Sidebar */}
+        <div className="col-span-3 border-r border-gray-300 bg-white relative z-10">
           {/* FlexNavBar */}
-          <div className="absolute top-0 w-full z-20">
+          <div className="absolute top-0 left-0 w-full z-20 h-20">
             <FlexNavBar />
           </div>
 
-          {/* Grid container for SearchBox and ContactsMenu */}
-          <div className="mt-16 mx-0 bg-white p-2 grid grid-rows-auto gap-2">
-            {/* SearchBox */}
-            <div className="h-10 ">
+          {/* SearchBox and ContactsMenu */}
+          <div className="mt-20 p-2">
+            <div className="mb-4">
               <SearchBox />
             </div>
-            {/* ContactsMenu */}
             <div>
               <ContactsMenu />
             </div>
           </div>
+
           {/* ContactsList */}
-          <div className="mt-0 mx-0 bg-white">
+          <div className="overflow-y-auto">
             <ContactsList onContactClick={handleContactClick} />
           </div>
         </div>
-        
-        <div className="col-span-8 relative h-full">
+
+        {/* Main area */}
+        <div className="col-span-7 relative z-10 bg-white">
           {/* FixedNavBar */}
-          <div className="absolute top-0 w-full z-20">
+          <div className="absolute top-0 left-0 w-full z-20 h-20">
             <FixedNavBar selectedContact={selectedContact} />
           </div>
 
           {/* Workspace */}
-          <div className="absolute top-20 bottom-16 w-full z-10">
+          <div className="pt-18 pb-16 overflow-y-auto h-full bg-gray-50">
             <Workspace selectedContact={selectedContact} messages={messages} />
           </div>
 
           {/* FixedFooter */}
           {selectedContact && (
-            <div className="absolute bottom-0 w-full z-20">
+            <div className="absolute bottom-0 w-full z-20 bg-gray-100">
               <FixedFooter onSendMessage={handleSendMessage} />
             </div>
           )}
         </div>
+
+        <div className="col-span-1"></div>
       </div>
     </div>
   );
 };
 
 export default App;
-
+  

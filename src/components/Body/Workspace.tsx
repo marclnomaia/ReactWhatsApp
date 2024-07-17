@@ -1,54 +1,59 @@
 import React from 'react';
-import backgroundImage from './images/whatBack.png'; // Adjust the path as needed
+import whatBack from './images/whatBack.png';
 
 type Message = {
-  id: number;
+  sender: string;
   text: string;
   time: string;
-  sent: boolean;
-  status: string;
 };
 
-const Workspace: React.FC<{ selectedContact: any, messages: Message[] }> = ({ selectedContact, messages }) => {
+type WorkspaceProps = {
+  selectedContact: {
+    name: string;
+    picture: string;
+  } | null;
+  messages: Message[];
+};
+
+const Workspace: React.FC<WorkspaceProps> = ({ selectedContact, messages }) => {
+  if (!selectedContact) {
+    return <div className="p-4">Please select a contact to view the messages.</div>;
+  }
+
   return (
     <div
-      className="relative h-full p-4"
-      style={{ backgroundImage: `url(${backgroundImage})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
-    >
-      <div className="absolute inset-0 bg-opacity-75 rounded-lg p-4 overflow-y-auto h-full">
-        {selectedContact && (
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center">
-              <img src={selectedContact.picture} alt={selectedContact.name} className="w-12 h-12 rounded-full mr-4" />
-              <div>
-                <div className="font-bold">{selectedContact.name}</div>
-                <div className="text-sm text-gray-500">{selectedContact.status}</div>
-              </div>
-            </div>
-          </div>
-        )}
-        {messages.map((message) => (
-          <div key={message.id} className={`flex ${message.sent ? 'justify-end' : 'justify-start'} mb-4`}>
-            <div className={`bg-white p-2 rounded-lg shadow-md max-w-xs`}>
-              <div>{message.text}</div>
-              <div className="text-sm text-gray-500 mt-1 flex justify-between">
-                <span>{message.time}</span>
-                {message.sent && (
-                  <span className={`ml-2 ${message.status === 'read' ? 'text-blue-500' : ''}`}>
-                    {message.status === 'read' ? '✔✔' : '✔'}
-                  </span>
-                )}
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
+    className="p-4 h-full overflow-hidden"
+    style={{
+      backgroundImage: `url(${whatBack})`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+    }}
+  >
+    <div className="flex items-center mb-4">
+      <img src={selectedContact.picture} alt={selectedContact.name} className="w-10 h-10 rounded-full mr-2" />
+      <div>{selectedContact.name}</div>
     </div>
-  );
+    <div className="h-full overflow-y-auto">
+      {messages.map((message, index) => (
+        <div
+          key={index}
+          className={`mb-2 flex ${message.sender === selectedContact.name ? 'justify-end' : 'justify-start'}`}
+        >
+          <div
+            className={`inline-block p-2 rounded-lg border border-gray-300 ${message.sender === selectedContact.name ? 'bg-green-200 text-right' : 'bg-white text-left'}`}
+            style={{ maxWidth: '70%' }}
+          >
+            <div>{message.text}</div>
+            <div className="text-xs text-gray-500">{message.time}</div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+);
 };
 
 export default Workspace;
-
 
 
 

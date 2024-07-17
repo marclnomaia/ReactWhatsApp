@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { FaUsers, FaEllipsisV } from 'react-icons/fa';
-import { HiStatusOnline } from 'react-icons/hi';
-import { RiChatNewFill } from 'react-icons/ri';
+import { HiOutlineStatusOnline } from 'react-icons/hi';
+import { RiChatNewLine } from 'react-icons/ri';
 import { FiCircle } from 'react-icons/fi';
 import profileImage from './images/profile.png';
 
@@ -43,10 +43,10 @@ const FlexNavBar: React.FC = () => {
           />
         </div>
         <div className="col-span-3 flex justify-end items-center gap-4 pr-2">
-          <FiCircle size={24} title="AI Icon" />
-          <FaUsers size={24} title="Communities" />
-          <HiStatusOnline size={24} title="Status" />
-          <RiChatNewFill size={24} title="New Chat" />
+          <FiCircle size={24} title="AI Icon" className="text-gray-700" />
+          <FaUsers size={24} title="Communities" className="text-gray-700" />
+          <HiOutlineStatusOnline size={24} title="Status" className="text-gray-700" />
+          <RiChatNewLine size={24} title="New Chat" className="text-gray-700" />
           <div
             className="relative inline-block cursor-pointer w-6 h-6"
             onMouseDown={handleMouseDown}
@@ -54,7 +54,7 @@ const FlexNavBar: React.FC = () => {
             onClick={toggleMenu}
             title="More Options"
           >
-            <FaEllipsisV size={24} />
+            <FaEllipsisV size={24} className="text-gray-700" />
             {isClicked && (
               <div
                 className="absolute top-[2px] left-1/2 w-full h-full bg-gray-500 rounded-full 
@@ -63,7 +63,7 @@ const FlexNavBar: React.FC = () => {
             )}
             {isMenuOpen && (
               <div
-                className="absolute right-0 mt-2 w-48 bg-gray-100 rounded-md shadow-lg py-2 z-10"
+                className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-2 z-10"
               >
                 <div
                   style={menuItemStyle('New group')}
@@ -132,5 +132,6 @@ const FlexNavBar: React.FC = () => {
 };
 
 export default FlexNavBar;
+
 
 
